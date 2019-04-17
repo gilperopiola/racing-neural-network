@@ -5,9 +5,13 @@ using System.Collections.Generic;
 public class TileMap {
     public List<List<Tile>> tiles;
     public ConfigManager.TileMapConfig config;
+    public GameObject ParentGameObject;
 
     public TileMap(ConfigManager.TileMapConfig _config) {
         config = _config;
+
+        ParentGameObject = new GameObject();
+        ParentGameObject.name = "Tiles";
 
         string mapChars = FileHandler.Read(config.fileName).Replace("\n", "").Replace("\r", "");
         tiles = new List<List<Tile>>();
@@ -41,6 +45,8 @@ public class TileMap {
                 tiles[x][y].DestroyGameObject();
             }
         }
+
+        GameObject.Destroy(ParentGameObject);
     }
 
     public override string ToString() {

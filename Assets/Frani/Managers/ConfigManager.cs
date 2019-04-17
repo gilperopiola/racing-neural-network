@@ -12,6 +12,7 @@ public static class ConfigManager {
         public SimulationConfig simulation;
         public GeneticAlgorithmConfig geneticAlgorithm;
         public NeuralNetworkConfig neuralNet;
+        public TileMapConfig tileMap;
     }
 
     [System.Serializable]
@@ -50,5 +51,7 @@ public static class ConfigManager {
         public int nHiddenLayers;
 
         public float inputEase;
+
+        public string weightsFile;
     }
 }

@@ -3,26 +3,32 @@
     "debugMode": true,
     "simulation": {
         "individualWidth": 0.5,
-        "individualSpeedModifier": 1.4,
-        "individualRotationSpeedModifier": 2.2,
-        "individualRaycastStartingRotation": -0.9,
-        "individualRaycastRotationStep": 0.6,
+        "individualSpeedModifier": 2.2,
+        "individualRotationSpeedModifier": 2.0,
+        "individualRaycastStartingRotation": -0.8,
+        "individualRaycastRotationStep": 0.8,
         "individualStartingX": 0,
-        "individualStartingY": -1.0,
+        "individualStartingY": -2.5,
         "individualMinSpeed": 0.4,
         "wallWidth": 0.5,
-        "foodFitness": 10
+        "foodFitness": 20
     },
     "geneticAlgorithm": {
-        "nIndividuals": 240,
-        "nElite": 24,
-        "mutationRate": 0.35
+        "nIndividuals": 80,
+        "nElite": 8,
+        "mutationRate": 0.45
     },
     "neuralNet": {
-        "nInputNeurons": 4,
-        "nHiddenNeurons": 4,
+        "nInputNeurons": 3,
+        "nHiddenNeurons": 3,
         "nOutputNeurons": 3,
-        "nHiddenLayers": 2,
-        "inputEase": 1.3
+        "nHiddenLayers": 1,
+        "inputEase": 1.3,
+        "weightsFile": "best.txt"
+    },
+    "tileMap": {
+        "fileName": "Assets/Resources/Maps/RaceTrack01.map",
+        "width": 30,
+        "height": 18
     }
 }

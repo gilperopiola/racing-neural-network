@@ -12,23 +12,22 @@ public static class PopulationHistory {
         History.Add(new List<Individual>(individuals));
     }
 
-    public static List<float> GetBestWeights() {
-        List<float> bestWeights = new List<float>();
-        string[] bestWeightsStrings = FileHandler.Read(@"best.txt").Split(',');
+    public static List<float> LoadWeightsFromFile(string fileName) {
+        List<float> weights = new List<float>();
+        string[] weightsStrings = FileHandler.Read(fileName).Split(',');
 
-        foreach (var bestWeightsString in bestWeightsStrings) {
-            if (bestWeightsString == "") {
-                continue;
+        foreach (var weightsString in weightsStrings) {
+            if (weightsString != "") {
+                weights.Add(float.Parse(weightsString));
             }
-            bestWeights.Add(float.Parse(bestWeightsString));
         }
 
-        return bestWeights;
+        return weights;
     }
 
     public static void SaveBest(string fileName) {
-        List<float> bestWeights = GetBest().Dna.weights;
-        FileHandler.WriteFloatList(fileName, bestWeights, ",");
+        List<float> weights = GetBest().Dna.weights;
+        FileHandler.WriteFloatList(fileName, weights, ",");
     }
 
     public static Individual GetBest() {

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public enum TileType {
     VOID = 0,
-    GRASS = 1,
-    WATER = 2
+    WALL = 1,
+    FOOD = 2
 }
 
 public class TileMono : MonoBehaviour {
@@ -15,7 +15,6 @@ public class TileMono : MonoBehaviour {
 public class Tile {
     public GameObject gameObject;
     public TileMap tileMap;
-    public List<Individual> individuals;
     public TileType type;
     public Vector2 position;
 
@@ -25,7 +24,6 @@ public class Tile {
         tileMap = _tileMap;
         type = _type;
         position = _position;
-        individuals = new List<Individual>();
     }
 
     public Tile GetNeighbour(Direction direction) {
@@ -50,30 +48,23 @@ public class Tile {
         return null;
     }
 
-    public void AddIndividual(Individual newIndividual) {
-        individuals.Add(newIndividual);
-    }
-
-    public void RemoveIndividual(Individual oldIndividual) {
-        individuals.Remove(oldIndividual);
-    }
-
     public void CreateGameObject() {
-        gameObject = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Prefabs/Tiles/" + type.ToString()), new Vector3(position.x * 32, position.y * -32, 0), Quaternion.identity);
+        if (type == TileType.VOID) {
+            return;
+        }
+
+        gameObject = (GameObject)MonoBehaviour.Instantiate(Resources.Load("Prefabs/Tiles/" + type.ToString()),
+                        new Vector3(
+                            -ConfigManager.config.tileMap.width / 2 * ConfigManager.config.simulation.wallWidth + position.x * ConfigManager.config.simulation.wallWidth,
+                            +ConfigManager.config.tileMap.height / 2 * ConfigManager.config.simulation.wallWidth + position.y * -ConfigManager.config.simulation.wallWidth,
+                            0),
+                        Quaternion.identity);
+        gameObject.transform.SetParent(tileMap.ParentGameObject.transform);
         TileMono tileMono = gameObject.AddComponent<TileMono>();
         tileMono.tile = this;
     }
 
     public void DestroyGameObject() {
         GameObject.Destroy(gameObject);
-    }
-
-    public override string ToString() {
-        string s = "Tile[" + position.x + "][" + position.y + "] has " + individuals.Count + " individuals: ";
-        for (var i = 0; i < individuals.Count; i++) {
-            s += individuals[i].ToString();
-        }
-
-        return s;
     }
 }

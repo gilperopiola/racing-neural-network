@@ -10,7 +10,7 @@ public class Population {
     public Population() {
         Individuals = new List<Individual>();
 
-        Individuals.Add(new Individual(new DNA(PopulationHistory.GetBestWeights())));
+        Individuals.Add(new Individual(new DNA(PopulationHistory.LoadWeightsFromFile(ConfigManager.config.neuralNet.weightsFile))));
         Individuals[0].Index = 0;
         Individuals[0].CreateGameObject();
 

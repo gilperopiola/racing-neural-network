@@ -100,7 +100,7 @@ public class Individual {
             float rotationStep = ConfigManager.config.simulation.individualRaycastRotationStep;
             float realAngle = angle + startingRot + rotationStep * i;
 
-            RaycastHit2D hit = Physics2D.Raycast(GameObject.transform.position, new Vector2(Mathf.Cos(realAngle), Mathf.Sin(realAngle)), 4);
+            RaycastHit2D hit = Physics2D.Raycast(GameObject.transform.position, new Vector2(Mathf.Cos(realAngle), Mathf.Sin(realAngle)), 2);
             //Debug.DrawRay(GameObject.transform.position, new Vector3(Mathf.Cos(realAngle), Mathf.Sin(realAngle), 0), Color.red, 8);
             inputs.Add(hit.collider ? Sigmoid.Output(hit.distance / ConfigManager.config.neuralNet.inputEase) : 0);
         }
