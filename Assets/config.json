@@ -1,0 +1,28 @@
+{
+    "projectName": "Racing Neural Network",
+    "debugMode": true,
+    "simulation": {
+        "individualWidth": 0.5,
+        "individualSpeedModifier": 1.4,
+        "individualRotationSpeedModifier": 2.2,
+        "individualRaycastStartingRotation": -0.9,
+        "individualRaycastRotationStep": 0.6,
+        "individualStartingX": 0,
+        "individualStartingY": -1.0,
+        "individualMinSpeed": 0.4,
+        "wallWidth": 0.5,
+        "foodFitness": 10
+    },
+    "geneticAlgorithm": {
+        "nIndividuals": 240,
+        "nElite": 24,
+        "mutationRate": 0.35
+    },
+    "neuralNet": {
+        "nInputNeurons": 4,
+        "nHiddenNeurons": 4,
+        "nOutputNeurons": 3,
+        "nHiddenLayers": 2,
+        "inputEase": 1.3
+    }
+}
