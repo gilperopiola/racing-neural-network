@@ -24,7 +24,7 @@
         "nOutputNeurons": 3,
         "nHiddenLayers": 1,
         "inputEase": 1.3,
-        "weightsFile": "best.txt"
+        "weightsFolder": "Assets/Resources/AIs"
     },
     "tileMap": {
         "fileName": "Assets/Resources/Maps/RaceTrack01.map",

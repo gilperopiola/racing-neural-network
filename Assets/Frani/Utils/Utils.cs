@@ -13,6 +13,20 @@ public enum Direction {
     LEFT_UP
 }
 
+public static class VarHandler {
+    public static List<float> StringToFloatList(string s, char delimiter) {
+        List<float> list = new List<float>();
+
+        foreach (var floatString in s.Split(delimiter)) {
+            if (floatString != "") {
+                list.Add(float.Parse(floatString));
+            }
+        }
+
+        return list;
+    }
+}
+
 public static class FileHandler {
     public static string Read(string fileName) {
         return System.IO.File.ReadAllText(fileName);
@@ -24,6 +38,11 @@ public static class FileHandler {
                 file.Write(value.ToString() + delimiter);
             }
         }
+    }
+
+    public static int FilesInDirectory(string directory) {
+        System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(directory);
+        return dir.GetFiles().Length;
     }
 }
 

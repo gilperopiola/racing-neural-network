@@ -9,9 +9,12 @@ public class Orchestrator : MonoBehaviour {
     void Start() {
         ConfigManager.Init("Assets/config.json");
 
+        List<List<float>> initialWeights = AIManager.LoadWeights(ConfigManager.config.neuralNet.weightsFolder);
+
         TileMap = new TileMap(ConfigManager.config.tileMap);
         TileMap.CreateGameObjects();
-        Population = new Population();
+
+        Population = new Population(initialWeights);
 
         Debug.Log(ConfigManager.config.projectName + " started | debug = " + ConfigManager.config.debugMode);
     }
@@ -20,7 +23,7 @@ public class Orchestrator : MonoBehaviour {
         Population.Advance();
 
         if (Input.GetKeyDown(KeyCode.Space)) {
-            PopulationHistory.SaveBest(ConfigManager.config.neuralNet.weightsFile);
+            PopulationHistory.SaveBest(ConfigManager.config.neuralNet.weightsFolder);
         }
     }
 }

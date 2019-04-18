@@ -4,20 +4,31 @@ using UnityEngine;
 
 public class Population {
     public List<Individual> Individuals;
+    public GameObject ParentGameObject;
 
     public int nGeneration = 0;
 
-    public Population() {
+    public Population(List<List<float>> initialWeights = null) {
         Individuals = new List<Individual>();
+        ParentGameObject = new GameObject();
+        ParentGameObject.name = "Individuals";
 
-        Individuals.Add(new Individual(new DNA(PopulationHistory.LoadWeightsFromFile(ConfigManager.config.neuralNet.weightsFile))));
-        Individuals[0].Index = 0;
-        Individuals[0].CreateGameObject();
+        if (initialWeights != null) {
+            for (int i = 0; i < initialWeights.Count; i++) {
+                Individuals.Add(new Individual(new DNA(initialWeights[i])));
+                Individuals[i].Index = i;
+                Individuals[i].CreateGameObject();
+                Individuals[i].GameObject.transform.SetParent(ParentGameObject.transform);
+            }
+        } else {
+            initialWeights = new List<List<float>>(); //initializes it so it will be 0 on the for statement below
+        }
 
-        for (var i = 1; i < ConfigManager.config.geneticAlgorithm.nIndividuals; i++) {
+        for (var i = initialWeights.Count; i < ConfigManager.config.geneticAlgorithm.nIndividuals; i++) {
             Individuals.Add(new Individual(new DNA(NeuralNetworkHelper.GetWeightsNumberFromConfig())));
             Individuals[i].Index = i;
             Individuals[i].CreateGameObject();
+            Individuals[i].GameObject.transform.SetParent(ParentGameObject.transform);
         }
     }
 
@@ -73,7 +84,7 @@ public class Population {
 
     public bool HasFinished() {
         foreach (var individual in Individuals) {
-            if (!individual.Finished) {
+            if (!individual.Finished && individual.Fitness < 1000) {
                 return false;
             }
         }
@@ -90,6 +101,8 @@ public class Population {
         for (int i = 0; i < Individuals.Count; i++) {
             Individuals[i].DestroyGameObject();
         }
+
+        GameObject.Destroy(ParentGameObject);
     }
 
 

@@ -52,6 +52,6 @@ public static class ConfigManager {
 
         public float inputEase;
 
-        public string weightsFile;
+        public string weightsFolder;
     }
 }
